@@ -1,1 +1,0 @@
-# FruitClassification application
