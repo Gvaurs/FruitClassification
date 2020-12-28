@@ -1,0 +1,54 @@
+Fruit classification application
+========================================================
+author: Gvaurs
+date: 28 December 2020
+autosize: true
+
+```{r init, echo=FALSE}
+library(caret)
+set.seed(400)
+```
+
+Objective
+========================================================
+
+A fruit classification application has been developed. The application targets 4 types of fruits: 
+- Apple
+- Lemon
+- Mandarin
+- Orange
+
+The goal is to classify the fruits based on two simple characteristics:
+- Height
+- Width
+
+Model development (1/2)
+========================================================
+
+- The fruit dataset is obtained [here](https://www.kaggle.com/mjamilmoughal/fruits-with-colors-dataset)
+- The data is splitted into training dataset (70%) and test dataset (30%)
+```{r data}
+fruits <- read.csv(file='https://raw.githubusercontent.com/susanli2016/Machine-Learning-with-Python/master/fruit_data_with_colors.txt', sep='\t')
+fruits_in_training <- createDataPartition(fruits$fruit_label, p=0.7, list=FALSE)
+fruits_training <- fruits[fruits_in_training,]
+fruits_testing <- fruits[-fruits_in_training,]
+```
+
+Model development (2/2)
+========================================================
+
+- The classification model uses the [K-nearest-neighbors algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm).
+- The optimal model uses 5 nearest neighbors, and the accuracy on the testing set is 75%.
+```{r knnmodel, echo=FALSE}
+ctrl <- trainControl(method="cv",number = 10)
+model_knn <- train(fruit_name~height+width, trControl = ctrl, method='knn', data=fruits_training, preProcess = c("center","scale"), tuneLength=10)
+
+predict_knn <- predict(model_knn, newdata=fruits_testing)
+confusionMatrix(predict_knn, fruits_testing$fruit_name)$table
+confusionMatrix(predict_knn, fruits_testing$fruit_name)$overall[1]
+```
+
+Application screenshot
+========================================================
+
+![App screenshot](app_screenshot.png)
