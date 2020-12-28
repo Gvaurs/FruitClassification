@@ -25,11 +25,11 @@ shinyUI(fluidPage(
             p(" The application also displays the KNN model boundaries, as well as the data points from the training and test datasets."),
             h3("Additional documentation & source code"),
             p("A pitch presentation of this application can be found at:"),
-            a("a","a"),
+            a("https://gvaurs.github.io/FruitClassification/presentation",href="https://gvaurs.github.io/FruitClassification/presentation"),
             br(),
             br(),
             p("The source code of this application is hosted on GitHub:"),
-            a("a","a"),
+            a("https://github.com/Gvaurs/FruitClassification",href="https://github.com/Gvaurs/FruitClassification"),
             
         )),
         tabPanel("Application",     
